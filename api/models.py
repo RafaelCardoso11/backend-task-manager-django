@@ -12,7 +12,7 @@ class Task(models.Model):
     title = models.CharField(max_length=127)
     description = models.CharField(max_length=300, null=True, blank=True)
     priority = models.CharField(max_length=20, choices=list(PriorityEnum.items()))
-    due_date = models.DateField()
+    dueDate = models.DateField()
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
