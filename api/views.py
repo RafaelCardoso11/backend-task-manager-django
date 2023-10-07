@@ -60,3 +60,35 @@ class TaskRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
             'data': serializer.data,
         }
         return Response(response_data, status=status.HTTP_200_OK)
+    
+class CompleteMultipleTasksView(generics.UpdateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    def patch(self, request):
+        data = request.data
+        updated_tasks = []
+        
+        for data in data["taskCompletions"]:
+            task_id = data["taskId"]
+            completed = data["completed"]
+            updated_task_id = self.update_task_completion_status(task_id, completed)
+            if updated_task_id is not 0:
+                updated_tasks.append(updated_task_id)
+        if not updated_tasks:    
+            return Response({"message": "Tarefas não encontradas"},status=status.HTTP_404_NOT_FOUND)
+        
+        data_tasks_updated = self.find_by_ids(updated_tasks)
+        response_data = {
+            "data": data_tasks_updated,
+            "message": "Tarefas atualizadas com sucesso!"
+        }
+        return Response(response_data)
+
+    def update_task_completion_status(self, id, completed):
+        return Task.objects.filter(id=id).update(completed=completed)
+    
+    def find_by_ids(self, ids):
+        return Task.objects.filter(id__in=ids).values()
+       
+        
+        
