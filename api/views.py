@@ -30,7 +30,6 @@ class TaskListCreateView(generics.ListCreateAPIView):
         }
         return JsonResponse(response_data)
 
-
 class TaskRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
@@ -52,3 +51,12 @@ class TaskRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
             'message': 'Tarefa excluída com sucesso',
         }
         return JsonResponse(response_data)
+    
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.serializer_class(instance)
+        response_data = {
+            'message': 'Tarefa recuperada com sucesso',
+            'data': serializer.data,
+        }
+        return Response(response_data, status=status.HTTP_200_OK)
