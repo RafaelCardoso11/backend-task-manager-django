@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Task
 from .serializers import TaskSerializer, UserSerializer
-from django.contrib.auth import login
 # Create your views here.
 class UserRegistrationView(views.APIView):
     def post(self, request):
