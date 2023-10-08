@@ -1,6 +1,6 @@
 
 from django.http import JsonResponse
-from rest_framework import generics, status, views
+from rest_framework import generics, status, views, permissions
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Task
@@ -28,6 +28,7 @@ class UserRegistrationView(views.APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class TaskListCreateView(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     def post(self, request, *args, **kwargs):
@@ -51,6 +52,7 @@ class TaskListCreateView(generics.ListCreateAPIView):
         return JsonResponse(response_data)
 
 class TaskRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     def update(self, request, *args, **kwargs):
@@ -82,6 +84,7 @@ class TaskRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         return Response(response_data, status=status.HTTP_200_OK)
     
 class CompleteMultipleTasksView(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     def patch(self, request):
