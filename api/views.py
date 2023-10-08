@@ -80,7 +80,7 @@ class CompleteMultipleTasksView(generics.UpdateAPIView):
         data_tasks_updated = self.find_by_ids(updated_tasks)
         response_data = {
             "data": data_tasks_updated,
-            "message": "Tarefas atualizadas com sucesso!"
+            "message": "Conclusão das Tarefas atualizadas com sucesso!"
         }
         return Response(response_data)
 
