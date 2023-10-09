@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 PriorityEnum = {
   "HIGH" : 'HIGH',
@@ -6,6 +8,7 @@ PriorityEnum = {
   "LOW" : 'LOW',
 }
 class Task(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=127)
     description = models.CharField(max_length=300, null=True, blank=True)
     priority = models.CharField(max_length=20, choices=list(PriorityEnum.items()))
