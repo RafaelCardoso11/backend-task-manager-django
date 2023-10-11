@@ -1,13 +1,14 @@
 version: '3.8'
 services:
-  db:
-    image: mysql
-    restart: always
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  web:
+    container_name: django-web
+    build: .
+    volumes:
+      - ./app/:/usr/src/app/
+    env_file:
+      - ./.env
     ports:
-      - "3307:3306"
+      - 8000:8000
+
+networks:
+  django-task:
