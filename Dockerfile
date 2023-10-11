@@ -10,10 +10,10 @@ WORKDIR /backend-django
 
 COPY . .
 
-RUN pip install -r requirements.txt --no-cache-dir
 
-RUN python manage.py migrate
+RUN pip install --upgrade pip -r requirements.txt --no-cache-dir
+
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["gunicorn", "project.wsgi", "--log-file", "0.0.0.0:8000"]
