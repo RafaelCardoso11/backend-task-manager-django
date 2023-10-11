@@ -11,6 +11,7 @@ WORKDIR /backend-django
 COPY . .
 
 RUN pip install -r requirements.txt --no-cache-dir
+
 RUN python manage.py migrate
 
 EXPOSE 8000
