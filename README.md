@@ -1,4 +1,4 @@
-# Task Manager - Python + Django + Typeorm + Docker
+# Task Manager - Python + Django + Docker
 Aplicação backend desenvolvida com tecnologias modernas e práticas de desenvolvimento, como Python, Django e Docker, para oferecer um sistema de gerenciamento de tarefas eficiente e escalável.
 
 Tecnologias Utilizadas
